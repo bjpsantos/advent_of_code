@@ -8,10 +8,8 @@ files = get_txt_files(__file__)
 
 
 class Puzzle:
-
-    def __init__(self, text_input):    
+    def __init__(self, text_input):
         self.input = text_input
-
 
     def solve(self, part):
         if part == 1:
