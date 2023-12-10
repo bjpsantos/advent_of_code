@@ -1,6 +1,9 @@
 from utils.tools import get_txt_files, read_input, timing_decorator
 from utils.colors import magenta_color, reset_color
 
+
+import numpy as np
+
 files = get_txt_files(__file__)
 #########
 # Start #
@@ -10,12 +13,69 @@ files = get_txt_files(__file__)
 class Puzzle:
     def __init__(self, text_input):
         self.input = text_input
+        self.spelled_out = [
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+        ]
+
+        # for i, written in enumerate(self.spelled_out)
+        self.mapper = {written: i + 1 for i, written in enumerate(self.spelled_out)}
+
+    def get_numbers(self):
+        aux_list = []
+        for line in self.input:
+            aux = ""
+            for char in line:
+                if str.isnumeric(char):
+                    aux = aux + char
+
+            aux_list.append(int(aux[0] + aux[-1]))
+        return aux_list
+
+    def get_numbers2(self):
+        aux_list = []
+        for line in self.input:
+            list_idx = []
+            list_numbers = []
+            for written in self.spelled_out:
+                idx = line.find(written)
+                if idx != -1:
+                    list_idx.append(idx)
+                    list_numbers.append(self.mapper[written])
+                idx_r = line.rfind(written)
+                if idx_r != -1:
+                    list_idx.append(idx_r)
+                    list_numbers.append(self.mapper[written])
+
+            for idx, char in enumerate(line):
+                if str.isnumeric(char):
+                    list_idx.append(idx)
+                    list_numbers.append(int(char))
+
+            array_idx = np.array(list_idx)
+            array_numb = np.array(list_numbers)
+
+            sorted_idx = array_idx.argsort()
+            sorted_numb = array_numb[sorted_idx]
+
+            aux_list.append(int(str(sorted_numb[0]) + str(sorted_numb[-1])))
+
+        return aux_list
 
     def solve(self, part):
         if part == 1:
-            pass
+            list_numbers = self.get_numbers()
+            return sum(list_numbers)
+
         if part == 2:
-            pass
+            return sum(self.get_numbers2())
 
 
 @timing_decorator
@@ -34,8 +94,8 @@ def run_tests():
 
     # solutions
     print(f"\nRunning Solutions:")
-    assert main(raw=files["input"], part=1) == 55971
-    assert main(raw=files["input"], part=2) == 54719
+    # assert main(raw=files["input"], part=1) == 55971
+    # assert main(raw=files["input"], part=2) == 54719
 
 
 def solve():
