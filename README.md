@@ -11,7 +11,7 @@
 ![](https://img.shields.io/badge/2022_stars%20⭐-0-yellow)
 ![](https://img.shields.io/badge/2022_days%20completed-0-red)
 
-![](https://img.shields.io/badge/2023_stars%20⭐-4-yellow)
+![](https://img.shields.io/badge/2023_stars%20⭐-5-yellow)
 ![](https://img.shields.io/badge/2023_days%20completed-2-red)
 
 ## Quick start (Windows)
